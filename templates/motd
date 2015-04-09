@@ -1,0 +1,7 @@
+Running services:
+
+Name / Port / Tags
+{{ range services }} {{ if .Name | regexReplaceAll "^consul(-.*)?" "" }}
+{{.Name}} / {{ range service .Name "any"}}{{ .Port }} {{ end }}/ {{.Tags}} 
+{{end}} {{end}}
+

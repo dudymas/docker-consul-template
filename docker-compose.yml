@@ -1,0 +1,25 @@
+motd:
+    image: dudymas/consul-template
+    volumes:
+        - /etc:/srv/etc
+    volumes_from:
+        - tpls
+    environment:
+        - TEMPLATE_PATH=/data/templates/motd
+        - TEMPLATE_TARGET_PATH=/srv/etc/motd
+lb:
+    build: lb
+    ports:
+        - 80:80
+    volumes:
+        - /etc/nginx
+    volumes_from:
+        - tpls
+    environment:
+        - TEMPLATE_PATH=/data/templates/nginx.conf
+        - TEMPLATE_TARGET_PATH=/etc/nginx/conf.d/app.conf
+        - ON_RERENDER=reset_nginx.sh
+tpls:
+    build: templates
+    volumes:
+        - /data
