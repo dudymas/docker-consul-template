@@ -1,0 +1,6 @@
+#!/bin/sh
+
+exec consul-template \
+     -consul=${CONSUL_HOST}:${CONSUL_PORT} \
+     -template "${TEMPLATE_PATH}:${TEMPLATE_TARGET_PATH}:${ON_RERENDER}"
+
